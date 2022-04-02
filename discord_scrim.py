@@ -148,7 +148,7 @@ class Discord_scrim():
 
 	def start_scrim(self):
 		######################################################################
-		self._temp_add_bots(nb=12)################ Testing only ##############
+		#self._temp_add_bots(nb=12)################ Testing only ##############
 		######################################################################
 		self.scrim_brain.build_teams()
 

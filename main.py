@@ -36,7 +36,8 @@ class Bot(commands.Bot):
                      'master': 1,
                      'grand_master': 0}
         for emoji in self.emojis:
-            self.dict_emojis[temp_dict[emoji.name]] = emoji
+            if emoji.name in list(temp_dict.keys()):
+                self.dict_emojis[temp_dict[emoji.name]] = emoji
         self.__set_elo_options()
 
     def __set_elo_options(self):
