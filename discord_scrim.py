@@ -58,15 +58,12 @@ class Discord_scrim():
 				name = discord_id.split("#")[0]
 			else:
 				name = discord_id.nick
-				print("nickname :", name)
 				if name is None:
 					name = discord_id.name
-					print("name :", name)
 			# check if this name is used be someone else
 			if self._is_name_taken(name):
 				name = str(discord_id)
 
-			print("type name :", type(name))
 			player = Player(name, str(discord_id), roles)
 			self.scrim_brain.add_player(player)
 		else: # This discord_id is in registeration
