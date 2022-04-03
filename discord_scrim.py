@@ -47,25 +47,32 @@ class Discord_scrim():
 		self.scrim_brain.begin_registration()
 
 
-	def add_register_player(self,discord_id,is_tank: bool,
+	def add_register_player(self, discord_id, is_tank: bool,
 							is_dps: bool, is_heal: bool):
 		player = self.get_player_from_discord_id(discord_id)
-		if player is False:
+		if player is False: # This discord_id is not registered
 			roles = Roles()
-			roles.set_Is_choosen_info(is_tank,is_dps,is_heal)
-			if type(discord_id) != str:
-				name = discord_id.nick
-			else:
+			roles.set_Is_choosen_info(is_tank, is_dps, is_heal)
+
+			if isinstance(discord_id,str): # for bot creation
 				name = discord_id.split("#")[0]
-			if name == None:
-				name = discord_id.name
+			else:
+				name = discord_id.nick
+				print("nickname :", name)
+				if name is None:
+					name = discord_id.name
+					print("name :", name)
+			# check if this name is used be someone else
 			if self._is_name_taken(name):
 				name = str(discord_id)
+
+			print("type name :", type(name))
 			player = Player(name, str(discord_id), roles)
 			self.scrim_brain.add_player(player)
-		else:
+		else: # This discord_id is in registeration
 			player.roles.set_Is_choosen_info(is_tank,is_dps,is_heal)
 		return player
+
 
 
 	def validate_registration(self,discord_id):

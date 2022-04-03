@@ -15,6 +15,7 @@ class Bot(commands.Bot):
         self.guild_ids = []
         self.dict_emojis = {}  # {0:emoji, ...}
         self.elo_options = []
+        self.register_message = ""
         self.priority_emojis = {3: "🟠", 2: "🟡", 1: "🟢"}
         self.role_emojis = {"tank": "🛡", "dps": "⚔", "heal": "❤"}
         self.discrim = Discord_scrim()
@@ -61,10 +62,12 @@ class Bot(commands.Bot):
         if bot.discrim.can_register():
             embed = get_main_embed()
             view = View_register_button()
+            content = self.register_message
             try:
                 await self.main_message.edit(embed=None)
                 await self.main_message.edit(content=content,
-                                             embed=embed, view=view)
+                                             embed=embed,
+                                             view=view)
             except:
                 self.main_message = await ctx.channel.send(content=content,
                                                            embed=embed,
@@ -316,8 +319,8 @@ class View_panel_begin_registration(discord.ui.View):
                 bot.discrim.begin_registration()
                 ctx = await bot.get_application_context(interaction)
                 await ctx.channel.purge()
-                await bot.send_main_msg(ctx,
-                                        self.children[0].value+" @everyone")
+                bot.register_message = self.children[0].value+" @everyone"
+                await bot.send_main_msg(ctx)
                 view = View_panel_end_registration()
                 await interaction.response.send_message(view=view,
                                                         ephemeral=True)
