@@ -407,7 +407,7 @@ def team_rotation(teams_dict:dict, team_id_potentiel:int, nb_teams:int,
 
     return score_elo_scrim, score_priority_scrim
 
-def build_team_main_1(player_list: list[Player]):
+def build_team_main_1(player_list):
     """
     player_list : list[Player]
     """

@@ -112,6 +112,8 @@ class Discord_scrim():
 
 	def get_is_choosen(self,discord_id,role_concerned):
 		player = self.get_player_from_discord_id(discord_id)
+		if not player:
+			return False
 		if role_concerned == "tank":
 			return player.roles.get_tank_is_choosen()
 		elif role_concerned == "dps":

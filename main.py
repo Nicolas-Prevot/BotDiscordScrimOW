@@ -366,10 +366,14 @@ class View_panel_end_registration(discord.ui.View):
     async def btn_get_list_player_callback(self, button, interaction):
         content = "Liste des joueurs inscrits : \n"
         for player in bot.discrim.get_list_player():
+            player_column_size = 30
             [is_tank, priority_tank, elo_tank,
              is_dps, priority_dps, elo_dps, is_heal,
              priority_heal, elo_heal] = bot.discrim.get_sum_up_player2(player)
-            content += f"{player} "
+            player_column_string = f"{player}"
+            for i in range(player_column_size-len(player_column_string)):
+                player_column_string += " "
+            content += player_column_string
             if is_tank:
                 content += f'{bot.role_emojis["tank"]}'\
                            f"{bot.priority_emojis[priority_tank]}"\
