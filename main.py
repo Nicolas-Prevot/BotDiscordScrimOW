@@ -142,7 +142,7 @@ async def get_panel_scrim(ctx):
         return
     if not CHANNEL_BOT in ctx.channel.name:
         await ctx.interaction.response.send_message(
-                                    content=f"Utilise {CHANNEL_BOT}",
+                                    content=f"Utilise le channel {CHANNEL_BOT}",
                                     ephemeral=True)
         return
 
@@ -233,7 +233,7 @@ def get_teams_embeds():
     embeds = []
     nb_teams = bot.discrim.get_nb_teams()
     is_bench_team = bot.discrim.is_bench_team()
-    dict_order_role = {"tank": 0, "dps": 2, "heal": 4}
+    dict_order_role = {"tank": 0, "dps": 1, "heal": 3}
     for i in range(nb_teams):
         if ((i+1) == nb_teams) and is_bench_team:
             embed = discord.Embed(title="~  🪑  ~ LE BANC (cheh) ~  🪑  ~",
@@ -261,7 +261,7 @@ def get_teams_embeds():
             embed = discord.Embed(
                         title=f"~  ✨  ~  ✨  ~ Equipe {i+1} ~  ✨  ~  ✨  ~",
                         color=discord.Color.random())
-            for t in range(6):
+            for t in range(5):
                 embed.add_field(name="absent", value="😴")
             for info in bot.discrim.get_team_players_info(i):
                 name_player = info["name"]

@@ -10,7 +10,7 @@ def get_team_elo_mean(team_id:int, teams_dict:dict) -> float:
     team_elo = 0
     for role, player in teams_dict[team_id].items():
         team_elo += player.roles.get_elo(role[:-1])
-    return team_elo/6
+    return team_elo/5
 
 
 
@@ -38,10 +38,8 @@ def add_player_to_team(player: Player,
     target_priority : int = None
     """
     if target_priority is None:
-        if team["tank1"] is None:
-            team["tank1"] = player
-        elif team["tank2"] is None:
-            team["tank2"] = player
+        if team["tank"] is None:
+            team["tank"] = player
         elif team["dps1"] is None:
             team["dps1"] = player
         elif team["dps2"] is None:
@@ -54,13 +52,10 @@ def add_player_to_team(player: Player,
             return False
         return True
 
-    if ((team["tank1"] is None or team["tank2"] is None) and
+    if ((team["tank"] is None) and
         player.roles.get_tank_is_choosen()):
         if player.roles.get_tank_priority() == target_priority:
-            if team["tank1"] is None:
-                team["tank1"] = player
-            else:
-                team["tank2"] = player
+            team["tank"] = player
             return True
 
     if ((team["dps1"] is None or team["dps2"] is None) and
@@ -263,11 +258,7 @@ def bench_rotation(teams_dict:dict, nb_teams:int,
         for team_id in range(nb_teams):
             if potential_player.roles.tank["Is_choosen"]:
                 best_position = try_switch_bench(potential_player,team_id,
-                                                 role="tank1",
-                                                 teams_dict=teams_dict,
-                                                 best_position=best_position)
-                best_position = try_switch_bench(potential_player,team_id,
-                                                 role="tank2",
+                                                 role="tank",
                                                  teams_dict=teams_dict,
                                                  best_position=best_position)
             if potential_player.roles.dps["Is_choosen"]:
@@ -323,7 +314,7 @@ def team_rotation(teams_dict:dict, team_id_potentiel:int, nb_teams:int,
     nb_iteration_max_team = 20
     
     for i in range(nb_iteration_max_team):
-        id_player=i%6
+        id_player=i%5
 
         role_potentiel = list(teams_dict[team_id_potentiel])[id_player]
         potential_player = teams_dict[team_id_potentiel][role_potentiel]
@@ -338,14 +329,7 @@ def team_rotation(teams_dict:dict, team_id_potentiel:int, nb_teams:int,
                                                 team_id_potentiel,
                                                 role_potentiel,
                                                 team_id,
-                                                role="tank1",
-                                                teams_dict=teams_dict,
-                                                best_position=best_position)
-                best_position = try_switch_team(potential_player,
-                                                team_id_potentiel,
-                                                role_potentiel,
-                                                team_id,
-                                                role="tank2",
+                                                role="tank",
                                                 teams_dict=teams_dict,
                                                 best_position=best_position)
             if potential_player.roles.dps["Is_choosen"]:
@@ -417,8 +401,8 @@ def build_team_main_1(player_list):
 
     ############################## Initialization ############################
     for k in range(nb_teams):
-        teams_dict[k] = {"tank1": None, "tank2": None, "dps1": None,
-                         "dps2": None, "heal1": None, "heal2": None}
+        teams_dict[k] = {   "tank": None, "dps1": None, "dps2": None, 
+                            "heal1": None, "heal2": None}
     for player in player_list:
         i = 0
         while(add_player_to_team(player, teams_dict[i], 1) == False):

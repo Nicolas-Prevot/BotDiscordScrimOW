@@ -103,21 +103,20 @@ class Teams():
 		self._build_teams()
 
 	def _build_teams(self):
-		nb_teams = len(self._players_list)//6
+		nb_teams = len(self._players_list)//5
 		if nb_teams < 2:
 			next_team_id = 0
 			for player in self._players_list:
 				self._add_player_in_team("bench", "rolebidon", player)
 				#Because team_key=="bench",role="rolebidon" will never be used
-				if len(self._teams_dict["bench"]) == 6:
+				if len(self._teams_dict["bench"]) == 5:
 					bench_players = self._teams_dict["bench"]
 					new_team = {
-					"tank1":bench_players[0],
-					"tank2":bench_players[1],
-					"dps1" :bench_players[2],
-					"dps2" :bench_players[3],
-					"heal1":bench_players[4],
-					"heal2":bench_players[5]}
+					"tank":bench_players[0],
+					"dps1" :bench_players[1],
+					"dps2" :bench_players[2],
+					"heal1":bench_players[3],
+					"heal2":bench_players[4]}
 					self._teams_dict[next_team_id] = new_team
 					self._teams_dict["bench"] = []
 					next_team_id += 1
