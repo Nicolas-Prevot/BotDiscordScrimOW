@@ -43,19 +43,19 @@ class Bot(commands.Bot):
 
     def __set_elo_options(self):
         self.elo_options = [
-            discord.SelectOption(label="0-1499", value=6,
+            discord.SelectOption(label="1-5", value=6,
                                  emoji=self.dict_emojis[6]),
-            discord.SelectOption(label="1500-1999", value=5,
+            discord.SelectOption(label="1-5", value=5,
                                  emoji=self.dict_emojis[5]),
-            discord.SelectOption(label="2000-2499", value=4,
+            discord.SelectOption(label="1-5", value=4,
                                  emoji=self.dict_emojis[4]),
-            discord.SelectOption(label="2500-2999", value=3,
+            discord.SelectOption(label="1-5", value=3,
                                  emoji=self.dict_emojis[3]),
-            discord.SelectOption(label="3000-3499", value=2,
+            discord.SelectOption(label="1-5", value=2,
                                  emoji=self.dict_emojis[2]),
-            discord.SelectOption(label="3500-3999", value=1,
+            discord.SelectOption(label="1-5", value=1,
                                  emoji=self.dict_emojis[1]),
-            discord.SelectOption(label="4000+", value=0,
+            discord.SelectOption(label="1-5", value=0,
                                  emoji=self.dict_emojis[0])]
 
     async def send_main_msg(self, ctx, content=None):
