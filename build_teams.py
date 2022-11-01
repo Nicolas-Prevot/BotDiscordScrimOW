@@ -38,8 +38,8 @@ def add_player_to_team(player: Player,
     target_priority : int = None
     """
     if target_priority is None:
-        if team["tank"] is None:
-            team["tank"] = player
+        if team["tank1"] is None:
+            team["tank1"] = player
         elif team["dps1"] is None:
             team["dps1"] = player
         elif team["dps2"] is None:
@@ -52,10 +52,10 @@ def add_player_to_team(player: Player,
             return False
         return True
 
-    if ((team["tank"] is None) and
+    if ((team["tank1"] is None) and
         player.roles.get_tank_is_choosen()):
         if player.roles.get_tank_priority() == target_priority:
-            team["tank"] = player
+            team["tank1"] = player
             return True
 
     if ((team["dps1"] is None or team["dps2"] is None) and
@@ -116,7 +116,7 @@ def get_score_priority_dict(teams_dict:dict) -> dict:
         for role, player in team.items():
             player_score = get_score_priority_player(player, role[:-1])
             score_priority_dict[team_id] += player_score/(1+player_score)
-        score_priority_dict[team_id] = score_priority_dict[team_id]/6
+        score_priority_dict[team_id] = score_priority_dict[team_id]/5
     return score_priority_dict
 
 
@@ -258,7 +258,7 @@ def bench_rotation(teams_dict:dict, nb_teams:int,
         for team_id in range(nb_teams):
             if potential_player.roles.tank["Is_choosen"]:
                 best_position = try_switch_bench(potential_player,team_id,
-                                                 role="tank",
+                                                 role="tank1",
                                                  teams_dict=teams_dict,
                                                  best_position=best_position)
             if potential_player.roles.dps["Is_choosen"]:
@@ -329,7 +329,7 @@ def team_rotation(teams_dict:dict, team_id_potentiel:int, nb_teams:int,
                                                 team_id_potentiel,
                                                 role_potentiel,
                                                 team_id,
-                                                role="tank",
+                                                role="tank1",
                                                 teams_dict=teams_dict,
                                                 best_position=best_position)
             if potential_player.roles.dps["Is_choosen"]:
@@ -395,13 +395,13 @@ def build_team_main_1(player_list):
     """
     player_list : list[Player]
     """
-    nb_teams = len(player_list)//6
+    nb_teams = len(player_list)//5
     player_pool = []
     teams_dict = {}
 
     ############################## Initialization ############################
     for k in range(nb_teams):
-        teams_dict[k] = {   "tank": None, "dps1": None, "dps2": None, 
+        teams_dict[k] = {   "tank1": None, "dps1": None, "dps2": None, 
                             "heal1": None, "heal2": None}
     for player in player_list:
         i = 0
@@ -487,10 +487,10 @@ def build_team_main_1(player_list):
     ############################ End rotation ################################
     print(score_elo_scrim)
     print(score_priority_scrim)
-    """plt.plot(score_elo_scrim_history[:], label="elo_score")
-    plt.plot(score_priority_scrim_history[:], label="priority_score")
-    plt.legend()
-    plt.show()"""
+    #plt.plot(score_elo_scrim_history[:], label="elo_score")
+    #plt.plot(score_priority_scrim_history[:], label="priority_score")
+    #plt.legend()
+    #plt.show()
 
 
     return teams_dict

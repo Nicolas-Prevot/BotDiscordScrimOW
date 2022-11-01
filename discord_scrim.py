@@ -154,7 +154,7 @@ class Discord_scrim():
 
 	def start_scrim(self):
 		######################################################################
-		#self._temp_add_bots(nb=12)################ Testing only ##############
+		self._temp_add_bots(nb=12)################ Testing only ##############
 		######################################################################
 		self.scrim_brain.build_teams()
 
@@ -238,7 +238,7 @@ class Discord_scrim():
 			team_id)
 		if team_id == "bench":
 			return dict_players_id
-		roles = ["tank","dps1","dps2","heal1","heal2"]
+		roles = ["tank1","dps1","dps2","heal1","heal2"]
 		dict_emoji_role = {"tank":"🛡️","dps":"⚔️","heal":"❤️"}
 		roles_selected = []
 		for discord_id in dict_players_id.keys():
@@ -259,7 +259,7 @@ class Discord_scrim():
 		self.create_fresh_panel()
 
 	def panel_switch2player(self):
-		roles = ["tank","dps1","dps2","heal1","heal2"]
+		roles = ["tank1","dps1","dps2","heal1","heal2"]
 		team1_id = self.panel_memory["switch2player"]["team1"]
 		discord_id1 = self.panel_memory["switch2player"]["discord_id1"]
 		if discord_id1 in roles:

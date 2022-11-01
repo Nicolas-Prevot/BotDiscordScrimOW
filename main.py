@@ -16,7 +16,7 @@ class Bot(commands.Bot):
         self.dict_emojis = {}  # {0:emoji, ...}
         self.elo_options = []
         self.register_message = ""
-        self.priority_emojis = {3: "🟠", 2: "🟡", 1: "🟢"}
+        self.priority_emojis = {3: "🔴", 2: "🟡", 1: "🟢"}
         self.role_emojis = {"tank": "🛡", "dps": "⚔", "heal": "❤"}
         self.discrim = Discord_scrim()
         self.__get_guilds_id()
@@ -262,7 +262,7 @@ def get_teams_embeds():
                         title=f"~  ✨  ~  ✨  ~ Equipe {i+1} ~  ✨  ~  ✨  ~",
                         color=discord.Color.random())
             for t in range(5):
-                embed.add_field(name="absent", value="😴")
+                embed.add_field(name="absent", value="😴", inline=False)
             for info in bot.discrim.get_team_players_info(i):
                 name_player = info["name"]
                 role_player = info["role"][:-1]

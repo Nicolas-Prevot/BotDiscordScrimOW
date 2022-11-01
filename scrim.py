@@ -112,7 +112,7 @@ class Teams():
 				if len(self._teams_dict["bench"]) == 5:
 					bench_players = self._teams_dict["bench"]
 					new_team = {
-					"tank":bench_players[0],
+					"tank1":bench_players[0],
 					"dps1" :bench_players[1],
 					"dps2" :bench_players[2],
 					"heal1":bench_players[3],

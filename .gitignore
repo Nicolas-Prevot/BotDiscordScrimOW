@@ -133,3 +133,6 @@ token
 
 # Bot guild id
 guilds_id
+
+# VSCode
+.vscode/
